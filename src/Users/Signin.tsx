@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "./client";
 import * as client from "./client";
+import { useDispatch } from "react-redux";
+import { IUser, setUser } from "./reducer";
 
 export default function Signin() {
+    const dispatch = useDispatch();
     const [credentials, setCredentials] = useState<User>({
         _id: "",
         username: "",
@@ -16,7 +19,8 @@ export default function Signin() {
     });
     const navigate = useNavigate();
     const signin = async () => {
-        await client.signin(credentials);
+        const loggedInUser: IUser = await client.signin(credentials);
+        dispatch(setUser(loggedInUser));
         navigate("/Kanbas/Account/Profile");
     };
     return (

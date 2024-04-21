@@ -1,7 +1,5 @@
-import { db } from "../../Kanbas/Database";
 import { Link, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { HiChevronRight, HiMiniBars3 } from "react-icons/hi2";
-import { FaGlasses } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CourseNavigation from "./Navigation";
@@ -10,6 +8,12 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import Grades from "./Grades";
+import Quizzes from "./Quizzes";
+import { useSelector } from "react-redux";
+import { KanbasState } from "../store";
+import QuizDetails from "./Quizzes/QuizDetails";
+import QuizEditor from "./Quizzes/Editor";
+import QuizPreview from "./Quizzes/QuizPreview";
 
 const API_BASE = process.env.REACT_APP_BASE_API_URL;
 function Courses() {
@@ -22,6 +26,11 @@ function Courses() {
         );
         setCourse(response.data);
     };
+    const assignment = useSelector((state: KanbasState) => state.assignmentReducer.assignment);
+    const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
+    const user = useSelector((state: KanbasState) => state.usersReducer.currentUser);
+    console.log(user);
+
     useEffect(() => {
         findCourseById(courseId);
     }, [courseId]);
@@ -31,26 +40,32 @@ function Courses() {
 
     return (
         <div>
-            <h3 style={{ padding: "10px" }}><HiMiniBars3 color="red" style={{ margin: "10px" }} />
-                <Link to={`/Kanbas/Courses/${courseId}/Home`} style={{ textDecoration: "none", color: "red" }}>
-                    {course?.number} {course?.name}
-                </Link>
-                {/* This is a little hacky -> should update to use some state management to track breadcrumbs better */}
-                {breadcrumb === "Assignments" && pathArray.length > 5 ?
-                    <>
-                        <Link to={`/Kanbas/Courses/${courseId}/Assignments`} style={{ textDecoration: "none", color: "red" }}>
-                            <HiChevronRight />{breadcrumb}
+            <div className="row">
+                <div className="row col-9 p-1">
+                    <h3><HiMiniBars3 color="red" style={{ margin: "10px" }} />
+                        <Link to={`/Kanbas/Courses/${courseId}/Home`} style={{ textDecoration: "none", color: "red" }}>
+                            {course?.number} {course?.name}
                         </Link>
-                        <HiChevronRight /> {db.assignments.find((assignment) => assignment._id === pathArray[5])?.title}
-                    </>
-                    :
-                    <>
-                        <HiChevronRight />{breadcrumb}
-                    </>
-                }
+                        {/* This is a little hacky -> should update to use some state management to track breadcrumbs better */}
+                        {(breadcrumb === "Assignments" || breadcrumb === "Quizzes") && pathArray.length > 5 ?
+                            <>
+                                <Link to={`/Kanbas/Courses/${courseId}/${breadcrumb}`} style={{ textDecoration: "none", color: "red" }}>
+                                    <HiChevronRight />{breadcrumb}
+                                </Link>
+                                <HiChevronRight /> {breadcrumb === "Assignments" ? assignment?.title : quiz?.name}
+                            </>
+                            :
+                            <>
+                                <HiChevronRight />{breadcrumb}
+                            </>
+                        }
+                    </h3>
+                </div>
+                <div className="row col-3 text-end p-3">
+                    {user ? `Logged in as ${user.username} (${user.role})` : <><Link to={`/Kanbas/Account/SignIn`}>Login</Link></>}
+                </div>
+            </div>
 
-                <button style={{ float: "right", margin: "3px", borderRadius: "10px" }}><FaGlasses /> Student View</button>
-            </h3>
             <hr />
             <CourseNavigation />
             <div>
@@ -64,6 +79,10 @@ function Courses() {
                         <Route path="Piazza" element={<h1>Piazza</h1>} />
                         <Route path="Assignments" element={<Assignments />} />
                         <Route path="Assignments/:assignmentId" element={<AssignmentEditor />} />
+                        <Route path="Quizzes" element={<Quizzes />} />
+                        <Route path="Quizzes/:quizId" element={<QuizDetails />} />
+                        <Route path="Quizzes/:quizId/edit" element={<QuizEditor />} />
+                        <Route path="Quizzes/:quizId/preview" element={<QuizPreview />} />
                         <Route path="Grades" element={<Grades />} />
                     </Routes>
                 </div>

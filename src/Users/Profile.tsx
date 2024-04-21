@@ -2,7 +2,10 @@ import moment from 'moment'
 import * as client from "./client";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUser } from './reducer';
 export default function Profile() {
+    const dispatch = useDispatch();
     const [profile, setProfile] = useState({
         _id: "",
         username: "",
@@ -23,6 +26,7 @@ export default function Profile() {
     };
     const signout = async () => {
         await client.signout();
+        dispatch(setUser(null));
         navigate("/Kanbas/Account/Signin");
     };
 
