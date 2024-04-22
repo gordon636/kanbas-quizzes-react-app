@@ -42,10 +42,10 @@ function QuizDetails() {
         <>
             <div className="container-fluid">
                 <div className="col-12 text-end">
-                    {user && user.role === "FACULTY" && quiz.published ?
-                        <button type="button" className="btn btn-success btn-sm rounded ps-3 pe-3 border" onClick={() => handleChangePublishValue(quiz, false)}><FaCheckCircle /> Published</button> :
+                    {user && user.role === "FACULTY" && (quiz.published ?
+                        < button type="button" className="btn btn-success btn-sm rounded ps-3 pe-3 border" onClick={() => handleChangePublishValue(quiz, false)}><FaCheckCircle /> Published</button> :
                         <button type="button" className="btn btn-danger btn-sm rounded ps-3 pe-3 border" onClick={() => handleChangePublishValue(quiz, true)}><FaBan /> Unpublished</button>
-                    }
+                    )}
                     <button type="button" className="btn btn-sm rounded ps-3 pe-3 border" onClick={() => navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}/preview`)}>{user && user.role === "FACULTY" ? 'Preview' : 'Take Quiz'}</button>
                     {user && user.role === "FACULTY" &&
                         <>
@@ -56,7 +56,7 @@ function QuizDetails() {
                         </>
                     }
                 </div>
-            </div>
+            </div >
 
             <hr />
             <h1>{quiz.name}</h1>
