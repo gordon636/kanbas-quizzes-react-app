@@ -135,8 +135,6 @@ function QuizPreviewOneQuestion() {
 export function QuestionPreview(props: { question: IQuestion }) {
     const { question } = props;
 
-    console.log(question);
-
     if (!question) {
         return <></>;
     }

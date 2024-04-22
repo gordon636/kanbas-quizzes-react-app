@@ -29,7 +29,6 @@ function Courses() {
     const assignment = useSelector((state: KanbasState) => state.assignmentReducer.assignment);
     const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
     const user = useSelector((state: KanbasState) => state.usersReducer.currentUser);
-    console.log(user);
 
     useEffect(() => {
         findCourseById(courseId);

@@ -16,7 +16,6 @@ import Form from 'react-bootstrap/Form';
 import { QuestionPreview } from "../QuizPreview";
 
 const WYSIWYG_API_KEY = process.env.REACT_APP_WYSIWYG_API_KEY;
-console.log("API KEY: " + WYSIWYG_API_KEY);
 const questionTypeOptions = [
     { value: 'MULTIPLE_CHOICE', label: 'Multiple Choice' },
     { value: 'TRUE_FALSE', label: 'True False' },
