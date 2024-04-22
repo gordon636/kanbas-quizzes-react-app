@@ -1,7 +1,7 @@
 import axios from "axios";
-axios.defaults.withCredentials = true;
-
 import { IQuiz } from "./quizzesReducer";
+
+axios.defaults.withCredentials = true;
 
 const API_BASE = process.env.REACT_APP_BASE_API_URL;
 const COURSES_API = `${API_BASE}/api/courses`;
