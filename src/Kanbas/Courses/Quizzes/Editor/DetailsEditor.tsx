@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../store";
-import { IQuiz, selectQuiz, updateQuiz } from "../quizzesReducer";
+import { selectQuiz } from "../quizzesReducer";
 import * as client from "../client";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import moment from "moment";
