@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 
 const API_BASE = process.env.REACT_APP_BASE_API_URL;
