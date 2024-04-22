@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../store";
-import { IMulitpleChoiceQuestionAnswer, IQuestion, selectQuiz, setQuestion } from "../quizzesReducer";
+import { IQuestion, selectQuiz, setQuestion } from "../quizzesReducer";
 import * as client from "../client";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -16,6 +16,7 @@ import Form from 'react-bootstrap/Form';
 import { QuestionPreview } from "../QuizPreview";
 
 const WYSIWYG_API_KEY = process.env.REACT_APP_WYSIWYG_API_KEY;
+console.log("API KEY: " + WYSIWYG_API_KEY);
 const questionTypeOptions = [
     { value: 'MULTIPLE_CHOICE', label: 'Multiple Choice' },
     { value: 'TRUE_FALSE', label: 'True False' },
