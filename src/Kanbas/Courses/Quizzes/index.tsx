@@ -16,7 +16,7 @@ function QuizAvailability(props: { quiz: IQuiz }) {
     if (moment().diff(props.quiz.availableDate) > 0) {
         return <strong>Available</strong>;
     }
-    return <strong>`Not Available Until ${new Date(props.quiz.availableDate).toString()}`</strong>;
+    return <strong>Not Available Until {moment(props.quiz.availableDate).format('MMM DD')} at {moment(props.quiz.dueDate).format('h:mma')}</strong>;
 }
 
 function Quizzes() {
