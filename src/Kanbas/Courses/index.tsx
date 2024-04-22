@@ -15,6 +15,8 @@ import QuizDetails from "./Quizzes/QuizDetails";
 import QuizEditor from "./Quizzes/Editor";
 import QuizPreview from "./Quizzes/QuizPreview";
 
+axios.defaults.withCredentials = true
+
 const API_BASE = process.env.REACT_APP_BASE_API_URL;
 function Courses() {
     const { courseId } = useParams();
